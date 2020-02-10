@@ -14,11 +14,12 @@ protocol CarListRouterProtocol {
 
 final class CarListRouter {
 	
-	
+	weak var carViewController: CarListViewController?
 }
 
 extension CarListRouter: CarListRouterProtocol {
 	func showDetails(_ car: Car) {
-		print(#function)
+		let detailsVC = Factory.createDetailsCarModule(car: car)
+		carViewController?.navigationController?.pushViewController(detailsVC, animated: true)
 	}
 }

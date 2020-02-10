@@ -12,9 +12,19 @@ enum Factory {
 	
 	static func createCarListModule() -> CarListViewController {
 		let router = CarListRouter()
-		let presenter = CarListPresenter(router: router)
+		let dataService = DataService()
+		let repository = Repository(dataService: dataService)
+		let presenter = CarListPresenter(router: router, repository: repository)
 		let viewController = CarListViewController(presenter: presenter)
-		viewController.presenter = presenter
+		presenter.viewController = viewController
+		router.carViewController = viewController
+		return viewController
+	}
+	
+	static func createDetailsCarModule(car: Car) -> CarDetailsViewController {
+		let presenter = CarDitailsPresenter(car: car)
+		let viewController = CarDetailsViewController(presenter: presenter)
+		presenter.viewController = viewController
 		return viewController
 	}
 }

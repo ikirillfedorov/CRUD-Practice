@@ -11,28 +11,38 @@ import Foundation
 protocol CarListPresenterProtocol {
 	func getCarsCount() -> Int
 	func getCar(index: Int) -> Car
+	func showDetailsCar(at index: Int)
 }
 
 final class CarListPresenter {
 	
 	weak var viewController: CarListViewControllerProtocol?
-	let router: CarListRouterProtocol
+	private let repository: RepositoryProtocol
+	private let router: CarListRouterProtocol
+	private var cars: [Car] {
+		get { repository.getCars() }
+		set { repository.saveCars(newValue) }
+	}
 	
-	init(router: CarListRouterProtocol) {
+	init(router: CarListRouterProtocol, repository: RepositoryProtocol) {
 		self.router = router
+		self.repository = repository
 	}
 }
 
 extension CarListPresenter: CarListPresenterProtocol {
+	
+	func showDetailsCar(at index: Int) {
+		router.showDetails(cars[index])
+	}
+	
 	func getCarsCount() -> Int {
 		print(#function)
-		return 0
+		return cars.count
 	}
 	
 	func getCar(index: Int) -> Car {
 		print(#function)
-		return Car(model: "", manufactureYear: "", bodyType: "")
+		return cars[index]
 	}
-	
-	
 }

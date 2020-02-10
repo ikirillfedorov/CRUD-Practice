@@ -14,7 +14,8 @@ protocol CarListViewControllerProtocol: class {
 
 final class CarListViewController: UIViewController {
 	
-	var presenter: CarListPresenterProtocol
+	private let carListView = CarListView()
+	private let presenter: CarListPresenterProtocol
 	
 	init(presenter: CarListPresenterProtocol) {
 		self.presenter = presenter
@@ -23,6 +24,37 @@ final class CarListViewController: UIViewController {
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
+	}
+	
+	override func loadView() {
+		self.view = carListView
+	}
+	
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		carListView.carTableView.delegate = self
+		carListView.carTableView.dataSource = self
+
+	}
+}
+
+extension CarListViewController: UITableViewDataSource {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		return presenter.getCarsCount()
+	}
+	
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "cell") ?? UITableViewCell(style: .subtitle, reuseIdentifier: "cell")
+		let car = presenter.getCar(index: indexPath.row)
+		cell.textLabel?.text = car.model
+		return cell
+	}
+}
+
+extension CarListViewController: UITableViewDelegate {
+	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
+		presenter.showDetailsCar(at: indexPath.row)
 	}
 }
 
