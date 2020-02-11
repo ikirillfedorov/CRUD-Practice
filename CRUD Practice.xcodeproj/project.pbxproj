@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5C243B5623F1BFA200EC3368 /* CarDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C243B5523F1BFA200EC3368 /* CarDetailsViewController.swift */; };
 		5C243B5A23F1C02700EC3368 /* CarDitailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C243B5923F1C02700EC3368 /* CarDitailsPresenter.swift */; };
+		5C243B5C23F254BC00EC3368 /* CarDitailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C243B5B23F254BC00EC3368 /* CarDitailsView.swift */; };
+		5C243B5F23F257BC00EC3368 /* PropertyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C243B5E23F257BC00EC3368 /* PropertyField.swift */; };
 		5C7384FC23F0FCAA00E682D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7384FB23F0FCAA00E682D7 /* AppDelegate.swift */; };
 		5C73850523F0FCAC00E682D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C73850423F0FCAC00E682D7 /* Assets.xcassets */; };
 		5C73850823F0FCAC00E682D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C73850623F0FCAC00E682D7 /* LaunchScreen.storyboard */; };
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		5C243B5523F1BFA200EC3368 /* CarDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarDetailsViewController.swift; sourceTree = "<group>"; };
 		5C243B5923F1C02700EC3368 /* CarDitailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarDitailsPresenter.swift; sourceTree = "<group>"; };
+		5C243B5B23F254BC00EC3368 /* CarDitailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarDitailsView.swift; sourceTree = "<group>"; };
+		5C243B5E23F257BC00EC3368 /* PropertyField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyField.swift; sourceTree = "<group>"; };
 		5C7384F823F0FCAA00E682D7 /* CRUD Practice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CRUD Practice.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7384FB23F0FCAA00E682D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C73850423F0FCAC00E682D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -51,6 +55,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C243B5D23F254C000EC3368 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5C243B5B23F254BC00EC3368 /* CarDitailsView.swift */,
+				5C243B5E23F257BC00EC3368 /* PropertyField.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		5C7384EF23F0FCAA00E682D7 = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +133,7 @@
 		5CCB7B7623F1019000DE8394 /* DetailsModule */ = {
 			isa = PBXGroup;
 			children = (
+				5C243B5D23F254C000EC3368 /* Views */,
 				5C243B5523F1BFA200EC3368 /* CarDetailsViewController.swift */,
 				5C243B5923F1C02700EC3368 /* CarDitailsPresenter.swift */,
 			);
@@ -222,8 +236,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5C243B5F23F257BC00EC3368 /* PropertyField.swift in Sources */,
 				5CCB7B7D23F101EA00DE8394 /* Factory.swift in Sources */,
 				5CCB7B7B23F101DE00DE8394 /* Repository.swift in Sources */,
+				5C243B5C23F254BC00EC3368 /* CarDitailsView.swift in Sources */,
 				5C7384FC23F0FCAA00E682D7 /* AppDelegate.swift in Sources */,
 				5CCB7B7223F1016400DE8394 /* CarListRouter.swift in Sources */,
 				5CCB7B6D23F100D400DE8394 /* CarListViewController.swift in Sources */,

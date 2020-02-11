@@ -37,12 +37,10 @@ extension CarListPresenter: CarListPresenterProtocol {
 	}
 	
 	func getCarsCount() -> Int {
-		print(#function)
 		return cars.count
 	}
 	
 	func getCar(index: Int) -> Car {
-		print(#function)
 		return cars[index]
 	}
 }
