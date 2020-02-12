@@ -30,20 +30,43 @@ class CarDetailsViewController: UIViewController {
 		self.view = detailsView
 	}
 	
-    override func viewDidLoad() {
+	override func viewDidLoad() {
         super.viewDidLoad()
 		self.view.backgroundColor = .white
-		detailsView.manufactureYearLabel.addGestureRecognizer(setGesture())
-		detailsView.bodyTypeLabel.addGestureRecognizer(setGesture())
-
+		setupNavigationBar()
+//		addGestures()
+		checkCurrentCar()
     }
+	
+//	private func addGestures() {
+//		detailsView.manufactureYearLabel.addGestureRecognizer(setGesture())
+//		detailsView.bodyTypeLabel.addGestureRecognizer(setGesture())
+//	}
+	
+	private func checkCurrentCar() {
+		guard let car = presenter.getCurrentCar() else { return }
+		detailsView.modelField.textField.text = car.model
+		detailsView.manufacturerField.textField.text = car.manufacturer
+//		detailsView.bodyTypeLabel.text = car.bodyType
+//		detailsView.manufactureYearLabel.text = car.manufactureYear
+	}
+	
+	private func setupNavigationBar() {
+		navigationItem.title = presenter.getCurrentCar()?.model ?? "Add new car"
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonPressed))
+	}
 	
 	private func setGesture() -> UITapGestureRecognizer {
 		 return UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
 	}
+	
+	@objc private func saveButtonPressed() {
+		print(#function)
+	}
 
 	@objc func handleTap(sender: UITapGestureRecognizer) {
-		print(sender)
+		
+		
 	}
 }
 

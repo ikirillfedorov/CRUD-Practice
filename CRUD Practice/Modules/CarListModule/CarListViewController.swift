@@ -34,6 +34,17 @@ final class CarListViewController: UIViewController {
 		super.viewDidLoad()
 		carListView.carTableView.delegate = self
 		carListView.carTableView.dataSource = self
+		setupNavigationBar()
+	}
+	
+	@objc private func addButtonTapped() {
+		print(#function)
+		presenter.showDetailsCar(at: nil)
+	}
+	
+	private func setupNavigationBar() {
+		navigationItem.title = "Car list"
+		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
 	}
 }
 

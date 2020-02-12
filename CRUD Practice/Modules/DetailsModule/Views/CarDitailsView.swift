@@ -9,6 +9,15 @@
 import UIKit
 
 final class CarDitailsView: UIView {
+	
+	let datePicker: UIDatePicker = {
+		let picker = UIDatePicker()
+		picker.datePickerMode = .date
+		if let localeString = Locale.preferredLanguages.first {
+			picker.locale = Locale(identifier: localeString)
+		}
+		return picker
+	}()
 
 	let imageView: UIImageView = {
 		let imageView = UIImageView()
@@ -31,38 +40,47 @@ final class CarDitailsView: UIView {
 		return field
 	}()
 	
-	let manufactureYearLabel: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.layer.cornerRadius = 10
-		label.clipsToBounds = true
-		label.isUserInteractionEnabled = true
-		label.text = "Chose year of manufacture"
-		label.font = UIFont.systemFont(ofSize: 22, weight: .heavy)
-		label.textAlignment = .center
-		label.textColor = .white
-		label.backgroundColor = UIColor(red: 79 / 255, green: 156 / 255, blue: 224 / 255, alpha: 1)
-		return label
+	let manufactureDateField: PropertyField = {
+		let field = PropertyField()
+		field.translatesAutoresizingMaskIntoConstraints = false
+		field.label.text = "Manufacture year"
+		return field
 	}()
-	
-	let bodyTypeLabel: UILabel = {
-		let label = UILabel()
-		label.translatesAutoresizingMaskIntoConstraints = false
-		label.layer.cornerRadius = 10
-		label.clipsToBounds = true
-		label.isUserInteractionEnabled = true
-		label.text = "Chose body type"
-		label.font = UIFont.systemFont(ofSize: 22, weight: .heavy)
-		label.textColor = .white
-		label.textAlignment = .center
-		label.backgroundColor = UIColor(red: 79 / 255, green: 156 / 255, blue: 224 / 255, alpha: 1)
-		return label
-	}()
+
+//	let manufactureYearLabel: UILabel = {
+//		let label = UILabel()
+//		label.translatesAutoresizingMaskIntoConstraints = false
+//		label.layer.cornerRadius = 10
+//		label.clipsToBounds = true
+//		label.isUserInteractionEnabled = true
+//		label.text = "Chose year of manufacture"
+//		label.font = UIFont.systemFont(ofSize: 22, weight: .heavy)
+//		label.textAlignment = .center
+//		label.textColor = .white
+//		label.backgroundColor = UIColor(red: 79 / 255, green: 156 / 255, blue: 224 / 255, alpha: 1)
+//		return label
+//	}()
+//
+//	let bodyTypeLabel: UILabel = {
+//		let label = UILabel()
+//		label.translatesAutoresizingMaskIntoConstraints = false
+//		label.layer.cornerRadius = 10
+//		label.clipsToBounds = true
+//		label.isUserInteractionEnabled = true
+//		label.text = "Chose body type"
+//		label.font = UIFont.systemFont(ofSize: 22, weight: .heavy)
+//		label.textColor = .white
+//		label.textAlignment = .center
+//		label.backgroundColor = UIColor(red: 79 / 255, green: 156 / 255, blue: 224 / 255, alpha: 1)
+//		return label
+//	}()
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
+		manufactureDateField.textField.inputView = datePicker
 		addSubviews()
 		setConstraint()
+		setupDatePicker()
 	}
 	
 	required init?(coder: NSCoder) {
@@ -73,8 +91,28 @@ final class CarDitailsView: UIView {
 		self.addSubview(imageView)
 		self.addSubview(modelField)
 		self.addSubview(manufacturerField)
-		self.addSubview(manufactureYearLabel)
-		self.addSubview(bodyTypeLabel)
+		self.addSubview(manufactureDateField)
+//		self.addSubview(bodyTypeLabel)
+	}
+	
+	private func setupDatePicker() {
+		let toolBar = UIToolbar(frame: CGRect(x: .zero, y: .zero, width: UIScreen.main.bounds.width, height: 44))
+		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(toolBarPressed))
+		let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+		toolBar.setItems([flexSpace, doneButton], animated: true)
+		manufactureDateField.textField.inputAccessoryView = toolBar
+		datePicker.addTarget(self, action: #selector(setDateFromPicker), for: .valueChanged)
+	}
+	
+	@objc private func toolBarPressed() {
+		setDateFromPicker()
+		superview?.endEditing(true)
+	}
+	
+	@objc private func setDateFromPicker() {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "MMM d, yyyy"
+		manufactureDateField.textField.text = formatter.string(from: datePicker.date)
 	}
 	
 	private func setConstraint() {
@@ -94,15 +132,15 @@ final class CarDitailsView: UIView {
 			manufacturerField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
 			manufacturerField.heightAnchor.constraint(equalToConstant: 65),
 
-			manufactureYearLabel.topAnchor.constraint(equalTo: manufacturerField.bottomAnchor, constant: 8),
-			manufactureYearLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-			manufactureYearLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-			manufactureYearLabel.heightAnchor.constraint(equalToConstant: 44),
+			manufactureDateField.topAnchor.constraint(equalTo: manufacturerField.bottomAnchor, constant: 8),
+			manufactureDateField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+			manufactureDateField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+			manufactureDateField.heightAnchor.constraint(equalToConstant: 65),
 
-			bodyTypeLabel.topAnchor.constraint(equalTo: manufactureYearLabel.bottomAnchor, constant: 8),
-			bodyTypeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-			bodyTypeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-			bodyTypeLabel.heightAnchor.constraint(equalToConstant: 44),
+//			bodyTypeLabel.topAnchor.constraint(equalTo: manufactureYearField.bottomAnchor, constant: 8),
+//			bodyTypeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+//			bodyTypeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+//			bodyTypeLabel.heightAnchor.constraint(equalToConstant: 44),
 		])
 	}
 

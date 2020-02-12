@@ -9,20 +9,22 @@
 import UIKit
 
 protocol CarDitailsPresenterProtocol {
-	
+	func getCurrentCar() -> Car?
 }
 
 final class CarDitailsPresenter {
 	
 	weak var viewController: CarDetailsViewControllerProtocol?
-	let car: Car
+	let car: Car?
 	
 	
-	init(car: Car) {
+	init(car: Car?) {
 		self.car = car
 	}
 }
 
 extension CarDitailsPresenter: CarDitailsPresenterProtocol {
-	
+	func getCurrentCar() -> Car? {
+		return car
+	}
 }

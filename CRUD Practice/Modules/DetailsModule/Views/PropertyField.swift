@@ -22,6 +22,7 @@ final class PropertyField: UIView {
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		textField.borderStyle = .roundedRect
 		textField.autocorrectionType = .no
+		textField.clearButtonMode = .whileEditing
 		return textField
 	}()
 	

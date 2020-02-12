@@ -21,7 +21,7 @@ enum Factory {
 		return viewController
 	}
 	
-	static func createDetailsCarModule(car: Car) -> CarDetailsViewController {
+	static func createDetailsCarModule(car: Car?) -> CarDetailsViewController {
 		let presenter = CarDitailsPresenter(car: car)
 		let viewController = CarDetailsViewController(presenter: presenter)
 		presenter.viewController = viewController

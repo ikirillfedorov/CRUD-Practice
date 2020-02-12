@@ -11,7 +11,7 @@ import Foundation
 protocol CarListPresenterProtocol {
 	func getCarsCount() -> Int
 	func getCar(index: Int) -> Car
-	func showDetailsCar(at index: Int)
+	func showDetailsCar(at index: Int?)
 }
 
 final class CarListPresenter {
@@ -32,8 +32,12 @@ final class CarListPresenter {
 
 extension CarListPresenter: CarListPresenterProtocol {
 	
-	func showDetailsCar(at index: Int) {
-		router.showDetails(cars[index])
+	func showDetailsCar(at index: Int?) {
+		if let index = index {
+			router.showDetails(cars[index])
+		} else{
+			router.showDetails(nil)
+		}
 	}
 	
 	func getCarsCount() -> Int {

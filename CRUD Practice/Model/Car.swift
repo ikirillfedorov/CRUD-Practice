@@ -10,6 +10,7 @@ import Foundation
 
 struct Car: Codable {
 	let model: String
-	let manufactureYear: String
+	let manufacturer: String
+	let manufactureDate: String
 	let bodyType: String
 }
