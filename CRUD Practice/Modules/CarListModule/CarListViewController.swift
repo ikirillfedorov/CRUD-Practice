@@ -34,7 +34,6 @@ final class CarListViewController: UIViewController {
 		super.viewDidLoad()
 		carListView.carTableView.delegate = self
 		carListView.carTableView.dataSource = self
-
 	}
 }
 
