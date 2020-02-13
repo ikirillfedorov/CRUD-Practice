@@ -24,14 +24,22 @@ final class Repository {
 
 extension Repository: RepositoryProtocol {
 	func getCars() -> [Car] {
-//		guard let data = dataService.loadData(),
-//			let cars = try? PropertyListDecoder().decode([Car].self, from: data) else { return [] }
-//		return cars
-		return [Car(model: "VAZ", manufacturer: "Avtovaz", manufactureDate: "1982", bodyType: "Sidan")]
+		guard let data = dataService.loadData() else { return [] }
+		do {
+			let cars = try PropertyListDecoder().decode([Car].self, from: data)
+			return cars
+		} catch {
+			print(error.localizedDescription)
+		}
+		return []
 	}
 	
 	func saveCars(_ cars: [Car]) {
-		guard let data = try? PropertyListEncoder().encode(cars) else { return }
-		dataService.saveData(data)
+		do {
+			let data = try PropertyListEncoder().encode(cars)
+			dataService.saveData(data)
+		} catch {
+			print(error.localizedDescription)
+		}
 	}
 }

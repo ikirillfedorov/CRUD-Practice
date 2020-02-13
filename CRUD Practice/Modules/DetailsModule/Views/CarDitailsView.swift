@@ -10,6 +10,32 @@ import UIKit
 
 final class CarDitailsView: UIView {
 	
+	enum BodyTypes: String
+	{
+		case sedan = "Sedan"
+		case hatchback = "Hatchback"
+		case crossover = "Crossover"
+		case coupe = "Coupe"
+		case cabriolet = "Cabriolet"
+	}
+
+	var pickerDataArray: [String] {
+		return [
+			BodyTypes.sedan.rawValue,
+			BodyTypes.hatchback.rawValue,
+			BodyTypes.crossover.rawValue,
+			BodyTypes.coupe.rawValue,
+			BodyTypes.cabriolet.rawValue,
+		]
+	}
+
+	
+	let formatter: DateFormatter = {
+		let formatter = DateFormatter()
+		formatter.dateFormat = "MMM d, yyyy"
+		return formatter
+	}()
+	
 	let datePicker: UIDatePicker = {
 		let picker = UIDatePicker()
 		picker.datePickerMode = .date
@@ -18,6 +44,12 @@ final class CarDitailsView: UIView {
 		}
 		return picker
 	}()
+	
+	let bodyTypePicker: UIPickerView = {
+		let picker = UIPickerView()
+		return picker
+	}()
+
 
 	let imageView: UIImageView = {
 		let imageView = UIImageView()
@@ -46,6 +78,14 @@ final class CarDitailsView: UIView {
 		field.label.text = "Manufacture year"
 		return field
 	}()
+	
+	let bodyTypeField: PropertyField = {
+		let field = PropertyField()
+		field.translatesAutoresizingMaskIntoConstraints = false
+		field.label.text = "Car body type"
+		return field
+	}()
+
 
 //	let manufactureYearLabel: UILabel = {
 //		let label = UILabel()
@@ -78,9 +118,11 @@ final class CarDitailsView: UIView {
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		manufactureDateField.textField.inputView = datePicker
+		bodyTypeField.textField.inputView = bodyTypePicker
 		addSubviews()
 		setConstraint()
 		setupDatePicker()
+		setupBodyTypePicker()
 	}
 	
 	required init?(coder: NSCoder) {
@@ -92,7 +134,7 @@ final class CarDitailsView: UIView {
 		self.addSubview(modelField)
 		self.addSubview(manufacturerField)
 		self.addSubview(manufactureDateField)
-//		self.addSubview(bodyTypeLabel)
+		self.addSubview(bodyTypeField)
 	}
 	
 	private func setupDatePicker() {
@@ -104,14 +146,29 @@ final class CarDitailsView: UIView {
 		datePicker.addTarget(self, action: #selector(setDateFromPicker), for: .valueChanged)
 	}
 	
+	private func setupBodyTypePicker() {
+		let toolBar = UIToolbar(frame: CGRect(x: .zero, y: .zero, width: UIScreen.main.bounds.width, height: 44))
+		let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(bodyTypePickerToolBarButtonPressed))
+		let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+		toolBar.setItems([flexSpace, doneButton], animated: true)
+		bodyTypeField.textField.inputAccessoryView = toolBar
+		bodyTypePicker.dataSource = self
+		bodyTypePicker.delegate = self
+	}
+
 	@objc private func toolBarPressed() {
 		setDateFromPicker()
 		superview?.endEditing(true)
 	}
 	
+	@objc private func bodyTypePickerToolBarButtonPressed() {
+		let selectedValue = pickerDataArray[bodyTypePicker.selectedRow(inComponent: 0)]
+		bodyTypeField.textField.text = selectedValue
+		superview?.endEditing(true)
+	}
+
+	
 	@objc private func setDateFromPicker() {
-		let formatter = DateFormatter()
-		formatter.dateFormat = "MMM d, yyyy"
 		manufactureDateField.textField.text = formatter.string(from: datePicker.date)
 	}
 	
@@ -137,11 +194,30 @@ final class CarDitailsView: UIView {
 			manufactureDateField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
 			manufactureDateField.heightAnchor.constraint(equalToConstant: 65),
 
-//			bodyTypeLabel.topAnchor.constraint(equalTo: manufactureYearField.bottomAnchor, constant: 8),
-//			bodyTypeLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
-//			bodyTypeLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
-//			bodyTypeLabel.heightAnchor.constraint(equalToConstant: 44),
+			bodyTypeField.topAnchor.constraint(equalTo: manufactureDateField.bottomAnchor, constant: 8),
+			bodyTypeField.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 8),
+			bodyTypeField.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -8),
+			bodyTypeField.heightAnchor.constraint(equalToConstant: 65),
 		])
 	}
+}
 
+extension CarDitailsView: UIPickerViewDelegate, UIPickerViewDataSource {
+	func numberOfComponents(in pickerView: UIPickerView) -> Int {
+		return 1
+	}
+
+	func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+		return pickerDataArray.count
+	}
+
+	func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+		bodyTypeField.textField.text = pickerDataArray[row]
+	}
+
+	func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+		return pickerDataArray[row]
+	}
+	
+	
 }

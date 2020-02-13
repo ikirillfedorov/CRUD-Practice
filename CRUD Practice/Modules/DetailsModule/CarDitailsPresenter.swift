@@ -10,20 +10,28 @@ import UIKit
 
 protocol CarDitailsPresenterProtocol {
 	func getCurrentCar() -> Car?
+	func updateOrAddCar(_ car: Car)
 }
 
 final class CarDitailsPresenter {
 	
 	weak var viewController: CarDetailsViewControllerProtocol?
-	let car: Car?
+	private let repository: RepositoryProtocol
+	private let car: Car?
 	
 	
-	init(car: Car?) {
+	init(repository: RepositoryProtocol, car: Car?) {
+		self.repository = repository
 		self.car = car
 	}
 }
 
 extension CarDitailsPresenter: CarDitailsPresenterProtocol {
+	func updateOrAddCar(_ car: Car) {
+		let filtredCars = repository.getCars().filter { $0.id != car.id } + [car]
+		repository.saveCars(filtredCars)
+	}
+	
 	func getCurrentCar() -> Car? {
 		return car
 	}

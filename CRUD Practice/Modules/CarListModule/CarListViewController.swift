@@ -37,6 +37,10 @@ final class CarListViewController: UIViewController {
 		setupNavigationBar()
 	}
 	
+	override func viewWillAppear(_ animated: Bool) {
+		carListView.carTableView.reloadData()
+	}
+	
 	@objc private func addButtonTapped() {
 		print(#function)
 		presenter.showDetailsCar(at: nil)

@@ -8,12 +8,12 @@
 
 import Foundation
 
-enum Factory {
+final class Factory {
 	
-	static func createCarListModule() -> CarListViewController {
+	let repository = Repository(dataService: DataService())
+	
+	func createCarListModule() -> CarListViewController {
 		let router = CarListRouter()
-		let dataService = DataService()
-		let repository = Repository(dataService: dataService)
 		let presenter = CarListPresenter(router: router, repository: repository)
 		let viewController = CarListViewController(presenter: presenter)
 		presenter.viewController = viewController
@@ -21,8 +21,8 @@ enum Factory {
 		return viewController
 	}
 	
-	static func createDetailsCarModule(car: Car?) -> CarDetailsViewController {
-		let presenter = CarDitailsPresenter(car: car)
+	func createDetailsCarModule(car: Car?) -> CarDetailsViewController {
+		let presenter = CarDitailsPresenter(repository: repository, car: car)
 		let viewController = CarDetailsViewController(presenter: presenter)
 		presenter.viewController = viewController
 		return viewController

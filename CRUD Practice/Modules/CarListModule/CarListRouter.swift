@@ -19,7 +19,7 @@ final class CarListRouter {
 
 extension CarListRouter: CarListRouterProtocol {
 	func showDetails(_ car: Car?) {
-		let detailsVC = Factory.createDetailsCarModule(car: car)
+		let detailsVC = Factory().createDetailsCarModule(car: car)
 		carViewController?.navigationController?.pushViewController(detailsVC, animated: true)
 	}
 }

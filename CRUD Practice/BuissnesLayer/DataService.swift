@@ -15,11 +15,19 @@ protocol DataServiceProtocol {
 }
 
 final class DataService {
+//	var isDir: ObjCBool = false
+//	if FileManager.default.fileExists(atPath: dirurl.path, isDirectory: &isDir), isDir.boolValue {
+//	try? FileManager.default.createDirectory(at: dirurl, withIntermediateDirectories: true, attributes: nil)
+//	}
+	
+	
 	private let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+	
 	private var archiveURL: URL {
 		return documentDirectory?.appendingPathComponent("data").appendingPathExtension("plist") ??
 		documentDirectory.unsafelyUnwrapped
 	}
+	
 }
 
 extension DataService: DataServiceProtocol

@@ -9,6 +9,7 @@
 import UIKit
 
 protocol CarDetailsViewControllerProtocol: class {
+	func saveButtonPressed()
 }
 
 class CarDetailsViewController: UIViewController {
@@ -34,21 +35,14 @@ class CarDetailsViewController: UIViewController {
         super.viewDidLoad()
 		self.view.backgroundColor = .white
 		setupNavigationBar()
-//		addGestures()
 		checkCurrentCar()
     }
-	
-//	private func addGestures() {
-//		detailsView.manufactureYearLabel.addGestureRecognizer(setGesture())
-//		detailsView.bodyTypeLabel.addGestureRecognizer(setGesture())
-//	}
 	
 	private func checkCurrentCar() {
 		guard let car = presenter.getCurrentCar() else { return }
 		detailsView.modelField.textField.text = car.model
 		detailsView.manufacturerField.textField.text = car.manufacturer
-//		detailsView.bodyTypeLabel.text = car.bodyType
-//		detailsView.manufactureYearLabel.text = car.manufactureYear
+		detailsView.manufactureDateField.textField.text = detailsView.formatter.string(from: car.manufactureDate)
 	}
 	
 	private func setupNavigationBar() {
@@ -56,20 +50,16 @@ class CarDetailsViewController: UIViewController {
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveButtonPressed))
 	}
 	
-	private func setGesture() -> UITapGestureRecognizer {
-		 return UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
-	}
-	
-	@objc private func saveButtonPressed() {
-		print(#function)
-	}
-
-	@objc func handleTap(sender: UITapGestureRecognizer) {
-		
-		
-	}
 }
 
 extension CarDetailsViewController: CarDetailsViewControllerProtocol {
-	
+	@objc func saveButtonPressed() {
+		let car = Car(model: detailsView.modelField.textField.text ?? "",
+					  manufacturer: detailsView.manufacturerField.textField.text ?? "",
+					  manufactureDate: detailsView.formatter.date(from: detailsView.manufactureDateField.textField.text ?? "") ?? Date(),
+					  bodyType: "Test",
+					  id: presenter.getCurrentCar()?.id)
+		presenter.updateOrAddCar(car)
+		navigationController?.popViewController(animated: true)
+	}
 }
