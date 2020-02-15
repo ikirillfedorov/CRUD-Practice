@@ -11,6 +11,7 @@
 		5C243B5A23F1C02700EC3368 /* CarDitailsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C243B5923F1C02700EC3368 /* CarDitailsPresenter.swift */; };
 		5C243B5C23F254BC00EC3368 /* CarDitailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C243B5B23F254BC00EC3368 /* CarDitailsView.swift */; };
 		5C243B5F23F257BC00EC3368 /* PropertyField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C243B5E23F257BC00EC3368 /* PropertyField.swift */; };
+		5C4ACDBC23F649A7001AD4AD /* BodyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C4ACDBB23F649A7001AD4AD /* BodyTypes.swift */; };
 		5C7384FC23F0FCAA00E682D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7384FB23F0FCAA00E682D7 /* AppDelegate.swift */; };
 		5C73850523F0FCAC00E682D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5C73850423F0FCAC00E682D7 /* Assets.xcassets */; };
 		5C73850823F0FCAC00E682D7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C73850623F0FCAC00E682D7 /* LaunchScreen.storyboard */; };
@@ -29,6 +30,7 @@
 		5C243B5923F1C02700EC3368 /* CarDitailsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarDitailsPresenter.swift; sourceTree = "<group>"; };
 		5C243B5B23F254BC00EC3368 /* CarDitailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarDitailsView.swift; sourceTree = "<group>"; };
 		5C243B5E23F257BC00EC3368 /* PropertyField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyField.swift; sourceTree = "<group>"; };
+		5C4ACDBB23F649A7001AD4AD /* BodyTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyTypes.swift; sourceTree = "<group>"; };
 		5C7384F823F0FCAA00E682D7 /* CRUD Practice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CRUD Practice.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7384FB23F0FCAA00E682D7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5C73850423F0FCAC00E682D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,6 +66,14 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		5C4ACDBD23F649B6001AD4AD /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				5C4ACDBB23F649A7001AD4AD /* BodyTypes.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
 		5C7384EF23F0FCAA00E682D7 = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +98,7 @@
 				5CCB7B7923F101C200DE8394 /* BuissnesLayer */,
 				5CCB7B7323F1016900DE8394 /* Modules */,
 				5CCB7B6A23F0FE7700DE8394 /* SupportingFiles */,
+				5C4ACDBD23F649B6001AD4AD /* Enums */,
 			);
 			path = "CRUD Practice";
 			sourceTree = "<group>";
@@ -243,6 +254,7 @@
 				5C7384FC23F0FCAA00E682D7 /* AppDelegate.swift in Sources */,
 				5CCB7B7223F1016400DE8394 /* CarListRouter.swift in Sources */,
 				5CCB7B6D23F100D400DE8394 /* CarListViewController.swift in Sources */,
+				5C4ACDBC23F649A7001AD4AD /* BodyTypes.swift in Sources */,
 				5CEFA0F723F104AF007EE4D2 /* Car.swift in Sources */,
 				5CCB7B7023F1015800DE8394 /* CarListPresenter.swift in Sources */,
 				5C243B5A23F1C02700EC3368 /* CarDitailsPresenter.swift in Sources */,

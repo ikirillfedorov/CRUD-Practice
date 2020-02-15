@@ -11,6 +11,7 @@ import Foundation
 protocol CarListPresenterProtocol {
 	func getCarsCount() -> Int
 	func getCar(index: Int) -> Car
+	func removeCar(at index: Int)
 	func showDetailsCar(at index: Int?)
 }
 
@@ -38,6 +39,12 @@ extension CarListPresenter: CarListPresenterProtocol {
 		} else{
 			router.showDetails(nil)
 		}
+	}
+	
+	func removeCar(at index: Int) {
+//		let removedCar = cars.first { $0.id == cars[index].id }
+//		guard let car = removedCar else { return }
+		cars.remove(at: index)
 	}
 	
 	func getCarsCount() -> Int {

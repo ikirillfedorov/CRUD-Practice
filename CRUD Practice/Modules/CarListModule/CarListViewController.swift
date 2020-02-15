@@ -42,7 +42,6 @@ final class CarListViewController: UIViewController {
 	}
 	
 	@objc private func addButtonTapped() {
-		print(#function)
 		presenter.showDetailsCar(at: nil)
 	}
 	
@@ -63,6 +62,16 @@ extension CarListViewController: UITableViewDataSource {
 		cell.textLabel?.text = car.model
 		return cell
 	}
+	
+	func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+		if editingStyle == .delete {
+			tableView.beginUpdates()
+			presenter.removeCar(at: indexPath.row)
+			carListView.carTableView.deleteRows(at: [indexPath], with: .automatic)
+			tableView.reloadData()
+			tableView.endUpdates()
+		}
+	}
 }
 
 extension CarListViewController: UITableViewDelegate {
@@ -75,5 +84,12 @@ extension CarListViewController: UITableViewDelegate {
 extension CarListViewController: CarListViewControllerProtocol {
 	func updateTableView() {
 		print(#function)
+	}
+}
+
+
+extension CarListViewController: UITextFieldDelegate {
+	func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+		return textField.resignFirstResponder()
 	}
 }

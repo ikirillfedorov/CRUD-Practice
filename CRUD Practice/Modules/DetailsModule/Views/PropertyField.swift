@@ -13,7 +13,7 @@ final class PropertyField: UIView {
 	let label: UILabel = {
 		let label = UILabel()
 		label.translatesAutoresizingMaskIntoConstraints = false
-		label.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
+		label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
 		return label
 	}()
 	
@@ -22,6 +22,7 @@ final class PropertyField: UIView {
 		textField.translatesAutoresizingMaskIntoConstraints = false
 		textField.borderStyle = .roundedRect
 		textField.autocorrectionType = .no
+		textField.textAlignment = .right
 		textField.clearButtonMode = .whileEditing
 		return textField
 	}()

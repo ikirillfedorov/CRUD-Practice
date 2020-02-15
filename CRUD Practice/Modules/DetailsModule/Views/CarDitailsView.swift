@@ -10,38 +10,15 @@ import UIKit
 
 final class CarDitailsView: UIView {
 	
-	enum BodyTypes: String
-	{
-		case sedan = "Sedan"
-		case hatchback = "Hatchback"
-		case crossover = "Crossover"
-		case coupe = "Coupe"
-		case cabriolet = "Cabriolet"
-	}
-
-	var pickerDataArray: [String] {
-		return [
-			BodyTypes.sedan.rawValue,
-			BodyTypes.hatchback.rawValue,
-			BodyTypes.crossover.rawValue,
-			BodyTypes.coupe.rawValue,
-			BodyTypes.cabriolet.rawValue,
-		]
-	}
-
-	
 	let formatter: DateFormatter = {
 		let formatter = DateFormatter()
-		formatter.dateFormat = "MMM d, yyyy"
+		formatter.dateFormat = "dd MMMM yyyy"
 		return formatter
 	}()
 	
 	let datePicker: UIDatePicker = {
 		let picker = UIDatePicker()
 		picker.datePickerMode = .date
-		if let localeString = Locale.preferredLanguages.first {
-			picker.locale = Locale(identifier: localeString)
-		}
 		return picker
 	}()
 	
@@ -62,6 +39,7 @@ final class CarDitailsView: UIView {
 		let field = PropertyField()
 		field.translatesAutoresizingMaskIntoConstraints = false
 		field.label.text = "Model"
+		field.textField.placeholder = "Entry model"
 		return field
 	}()
 	
@@ -69,13 +47,16 @@ final class CarDitailsView: UIView {
 		let field = PropertyField()
 		field.translatesAutoresizingMaskIntoConstraints = false
 		field.label.text = "Manufacturer"
+		field.textField.placeholder = "Entry manufacturer"
 		return field
 	}()
 	
 	let manufactureDateField: PropertyField = {
 		let field = PropertyField()
 		field.translatesAutoresizingMaskIntoConstraints = false
-		field.label.text = "Manufacture year"
+		field.label.text = "Manufacture date"
+		field.textField.placeholder = "Entry manufacture date"
+		field.textField.tag = TextFieldType.manufactureDateField.rawValue
 		return field
 	}()
 	
@@ -83,37 +64,21 @@ final class CarDitailsView: UIView {
 		let field = PropertyField()
 		field.translatesAutoresizingMaskIntoConstraints = false
 		field.label.text = "Car body type"
+		field.textField.placeholder = "Select body type"
+		field.textField.tag = TextFieldType.bodyTypeField.rawValue
 		return field
 	}()
-
-
-//	let manufactureYearLabel: UILabel = {
-//		let label = UILabel()
-//		label.translatesAutoresizingMaskIntoConstraints = false
-//		label.layer.cornerRadius = 10
-//		label.clipsToBounds = true
-//		label.isUserInteractionEnabled = true
-//		label.text = "Chose year of manufacture"
-//		label.font = UIFont.systemFont(ofSize: 22, weight: .heavy)
-//		label.textAlignment = .center
-//		label.textColor = .white
-//		label.backgroundColor = UIColor(red: 79 / 255, green: 156 / 255, blue: 224 / 255, alpha: 1)
-//		return label
-//	}()
-//
-//	let bodyTypeLabel: UILabel = {
-//		let label = UILabel()
-//		label.translatesAutoresizingMaskIntoConstraints = false
-//		label.layer.cornerRadius = 10
-//		label.clipsToBounds = true
-//		label.isUserInteractionEnabled = true
-//		label.text = "Chose body type"
-//		label.font = UIFont.systemFont(ofSize: 22, weight: .heavy)
-//		label.textColor = .white
-//		label.textAlignment = .center
-//		label.backgroundColor = UIColor(red: 79 / 255, green: 156 / 255, blue: 224 / 255, alpha: 1)
-//		return label
-//	}()
+	
+	var pickerDataArray = [
+			BodyTypes.sedan.rawValue,
+			BodyTypes.hatchback.rawValue,
+			BodyTypes.crossover.rawValue,
+			BodyTypes.coupe.rawValue,
+			BodyTypes.convertible.rawValue,
+			BodyTypes.wagon.rawValue,
+			BodyTypes.van.rawValue,
+			BodyTypes.jeep.rawValue,
+		]
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
@@ -218,6 +183,4 @@ extension CarDitailsView: UIPickerViewDelegate, UIPickerViewDataSource {
 	func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
 		return pickerDataArray[row]
 	}
-	
-	
 }
